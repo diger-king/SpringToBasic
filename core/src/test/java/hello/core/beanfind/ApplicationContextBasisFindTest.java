@@ -20,6 +20,7 @@ public class ApplicationContextBasisFindTest {
     void findByName() {
         MemberService memberService = ac.getBean("memberService", MemberService.class);
         assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
+
     }
 
     @Test
