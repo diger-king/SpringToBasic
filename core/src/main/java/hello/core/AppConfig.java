@@ -3,6 +3,7 @@ package hello.core;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
+import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
@@ -19,19 +20,20 @@ public class AppConfig { //AppConfig 는 공연 기획자
 
     @Bean
     public MemberService memberService() { //MemberService는 공연 배우1
+        System.out.println("AppConfig.memberService");
         return new MemberServiceImpl(memberRepository()); // 공연 배우가 필요한 장비를 공연 기획자가 지시해준것
     }
 
     @Bean
-    public OrderService orderService() {
-        return new OrderServiceImpl(
-                memberRepository(),
-                discountPolicy());
+    public MemberRepository memberRepository() {
+        System.out.println("AppConfig.memberRepository");
+        return new MemoryMemberRepository();
     }
 
     @Bean
-    public MemoryMemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+    public OrderService orderService() {
+        System.out.println("AppConfig.orderService");
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     @Bean
